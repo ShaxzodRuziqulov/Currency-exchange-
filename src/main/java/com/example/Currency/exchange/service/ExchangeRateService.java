@@ -47,9 +47,10 @@ public class ExchangeRateService {
                 .collect(Collectors.toList());
     }
 
-    public BigDecimal getExchangeRate(String fromCode, String toCode, LocalDate date) {
-        return exchangeRateRepository.findByFromCurrencyCodeAndToCurrencyCodeAndDate(fromCode, toCode, date)
-                .map(ExchangeRate::getRate).orElseThrow(() -> new RuntimeException("Exchange rate not found"));
+    public BigDecimal getExchangeRate(String fromCode, String toCode,LocalDate date) {
+        return exchangeRateRepository.findByFromCurrencyCodeAndToCurrencyCodeAndDate(fromCode, toCode,date)
+                .map(ExchangeRate::getRate)
+                .orElseThrow(() -> new RuntimeException("Exchange rate not found"));
     }
 
 }

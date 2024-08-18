@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -26,7 +27,7 @@ public class ExchangeRateResource {
         this.exchangeRateService = exchangeRateService;
     }
 
-    @PostMapping("rete/create")
+    @PostMapping("/rate/create")
     public ResponseEntity<?> create(@RequestBody ExchangeRateDto exchangeRateDto) throws URISyntaxException {
         ExchangeRateDto result = exchangeRateService.create(exchangeRateDto);
         return ResponseEntity
@@ -34,7 +35,13 @@ public class ExchangeRateResource {
                 .body(result);
     }
 
-    @GetMapping("rete/getRate/{fromCode}/{toCode}/{date}")
+    @GetMapping("/rate/all")
+    public ResponseEntity<?> allExchangeRate() {
+        List<ExchangeRateDto> exchangeRates = exchangeRateService.allExchangeRates();
+        return ResponseEntity.ok(exchangeRates);
+    }
+
+    @GetMapping("/rate/getRate/{fromCode}/{toCode}/{date}")
     public ResponseEntity<?> getExchangeRate(@PathVariable String fromCode, @PathVariable String toCode, @PathVariable LocalDate date) {
         BigDecimal exchangeRate = exchangeRateService.getExchangeRate(fromCode, toCode, date);
         return ResponseEntity.ok(exchangeRate);
