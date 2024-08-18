@@ -47,10 +47,26 @@ public class ExchangeRateService {
                 .collect(Collectors.toList());
     }
 
-    public BigDecimal getExchangeRate(String fromCode, String toCode,LocalDate date) {
-        return exchangeRateRepository.findByFromCurrencyCodeAndToCurrencyCodeAndDate(fromCode, toCode,date)
+    public BigDecimal getExchangeRate(String fromCode, String toCode, LocalDate date) {
+        return exchangeRateRepository.findByFromCurrencyCodeAndToCurrencyCodeAndDate(fromCode, toCode, date)
                 .map(ExchangeRate::getRate)
                 .orElseThrow(() -> new RuntimeException("Exchange rate not found"));
+    }
+
+    public BigDecimal getExchangeRate(String fromCode, String toCode) {
+        return exchangeRateRepository.findByFromCurrencyCodeAndToCurrencyCode(fromCode, toCode)
+                .map(ExchangeRate::getRate)
+                .orElseThrow(() -> new RuntimeException("Exchange rate not found"));
+    }
+
+    public BigDecimal convert(String fromCode, String toCode, BigDecimal amount) {
+        BigDecimal exchangeRate = getExchangeRate(fromCode, toCode);
+
+        if (exchangeRate == null || exchangeRate.compareTo(BigDecimal.ZERO) == 0) {
+            throw new IllegalArgumentException("Valyuta kursi topilmadi yoki noto'gri");
+        }
+
+        return amount.multiply(exchangeRate);
     }
 
 }

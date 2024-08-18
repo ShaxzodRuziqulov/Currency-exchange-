@@ -46,4 +46,10 @@ public class ExchangeRateResource {
         BigDecimal exchangeRate = exchangeRateService.getExchangeRate(fromCode, toCode, date);
         return ResponseEntity.ok(exchangeRate);
     }
+
+    @GetMapping("/rate/convert/{fromCode}/{toCode}/{amount}")
+    public ResponseEntity<?> convert(@PathVariable String fromCode, @PathVariable String toCode, @PathVariable BigDecimal amount) {
+        BigDecimal convert = exchangeRateService.convert(fromCode, toCode, amount);
+        return ResponseEntity.ok(convert);
+    }
 }
