@@ -16,11 +16,10 @@ import java.time.LocalDateTime;
 @Data
 public class ConversionHistoryDto {
     private Long id;
-    @ManyToOne
-    private Currency fromCurrency;
-    @ManyToOne
-    private Currency toCurrency;
+    private Long fromCurrencyId;
+    private Long toCurrencyId;
     private BigDecimal amount;
     private BigDecimal result;
     private LocalDateTime conversionDate;
 }
+
