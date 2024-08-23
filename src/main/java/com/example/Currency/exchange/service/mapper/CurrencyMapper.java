@@ -10,8 +10,8 @@ import com.example.Currency.exchange.entity.Currency;
 import com.example.Currency.exchange.service.dto.CurrencyDto;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
-public interface CurrencyMapper {
+@Mapper(componentModel = "spring" )
+public interface CurrencyMapper extends EntityMapper<CurrencyDto,Currency>{
     CurrencyDto toDto(Currency currency);
 
     Currency toEntity(CurrencyDto currencyDto);

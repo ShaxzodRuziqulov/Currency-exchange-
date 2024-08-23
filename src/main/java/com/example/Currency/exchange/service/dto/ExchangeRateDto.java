@@ -12,13 +12,12 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
 @Data
 public class ExchangeRateDto {
     private Long id;
-    @ManyToOne
-    private Currency fromCurrency;
-    @ManyToOne
-    private Currency toCurrency;
+    private Long fromCurrencyId;
+    private Long toCurrencyId;
     private BigDecimal rate;
     private LocalDate date;
 }

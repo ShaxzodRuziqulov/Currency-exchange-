@@ -39,4 +39,9 @@ public class ConversionHistoryService {
                 .collect(Collectors.toList());
     }
 
+    public ConversionHistory findById(Long id) {
+        return conversionHistoryRepository
+                .findById(id)
+                .orElseGet(ConversionHistory::new);
+    }
 }

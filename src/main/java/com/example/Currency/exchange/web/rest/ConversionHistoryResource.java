@@ -25,7 +25,7 @@ public class ConversionHistoryResource {
         this.conversionHistoryService = conversionHistoryService;
     }
 
-    @PostMapping("/history/create")
+    @PostMapping("/conversions/create")
     public ResponseEntity<?> create(@RequestBody ConversionHistoryDto conversionHistoryDto) throws URISyntaxException {
         ConversionHistoryDto result = conversionHistoryService.create(conversionHistoryDto);
         return ResponseEntity
@@ -33,10 +33,16 @@ public class ConversionHistoryResource {
                 .body(result);
     }
 
-    @GetMapping("/history/all")
+    @GetMapping("/conversions/all")
     public ResponseEntity<?> findAll() {
         List<ConversionHistoryDto> findAll = conversionHistoryService.findAll();
         return ResponseEntity.ok(findAll);
+    }
+
+    @GetMapping("/conversions/{id}")
+    public ResponseEntity<?> getConversionById(@PathVariable Long id) {
+        ConversionHistory result = conversionHistoryService.findById(id);
+        return ResponseEntity.ok(result);
     }
 
 }
